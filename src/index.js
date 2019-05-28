@@ -9,23 +9,16 @@ class Deck extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-			data: [],
     }
   }
 
-  componentDidMount() {
-		fetch('../data/deck.json')
-			.then(data => data.json())
-      .then(data => this.setState({data}))
-	}
-
   render() {
-    const cards = this.state.data;
+    const deck = this.props.deck;
 
     return (
       <div className="deck js-deck">
       <em>Deck: </em>
-      {cards.map(
+      {deck.map(
         (card, i) =>
         <Card
           key={i}
@@ -108,14 +101,21 @@ class Game extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
+      data: [],
     }
   }
+
+  componentDidMount() {
+		fetch('../data/deck.json')
+			.then(data => data.json())
+      .then(data => this.setState({data}))
+	}
 
   render() {
     const cards = this.state.data;
     return (
       <div>
-        <Deck />
+        <Deck deck={cards} />
         <hr/>
         <Bank />
         <hr/>
