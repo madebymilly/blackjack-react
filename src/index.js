@@ -17,38 +17,49 @@ class Deck extends React.Component {
 
     return (
       <div className="deck js-deck">
-      <em>Deck: </em>
-      {deck.map(
-        (card, i) =>
-        <Card
-          key={i}
-          suit={card.suit}
-          value={card.value}
-        />
-      )}
+        <em>Deck: </em>
+        {deck.map(
+          (card, i) =>
+          <Card
+            key={i}
+            suit={card.suit}
+            value={card.value}
+          />
+        )}
       </div>
     )
   }
 }
 
-class Bank extends React.Component {
-  render() {
-    return (
-      <div className="bank js-bank">
-        <em>Bank:</em>
-        <Hand />
-      </div>
-    )
-  }
-}
+// class Bank extends React.Component {
+//   render() {
+//     const hand = this.props.hand;
+//     console.log(hand);
+//     return (
+//       <div className="bank js-bank">
+//         <em>Bank:</em>
+//         <Hand hand={hand} />
+//       </div>
+//     )
+//   }
+// }
 
 class Hand extends React.Component {
+
   render() {
+    const hand = this.props.hand;
+    console.log(hand);
     return (
       <div>
         <div className="hand js-hand">
-          <Card suit="hearts" value="4" />
-          <Card suit="clubs" value="10"/>
+        {hand.map(
+          (card, i) =>
+          <Card
+            key={i}
+            suit={card.suit}
+            value={card.value}
+          />
+        )}
         </div>
       </div>
     )
@@ -87,9 +98,9 @@ class Player extends React.Component {
         </div>
         <div>
           <label>Stacksize: </label>
-          <span>200</span>
+          <span>{this.props.stack}</span>
         </div>
-        <button>Bet 10</button>
+        <button>Bet {this.props.bet}</button>
         <PlayerMoves />
       </div>
     )
@@ -102,6 +113,15 @@ class Game extends React.Component {
     super(props)
     this.state = {
       data: [],
+      stack: 200,
+      bankHand: [
+        { suit: 'hearts', value: 4 }
+      ],
+      playerHand: [
+          { suit: 'hearts', value: 10 },
+          { suit: 'clubs', value: "A" }
+      ],
+      bet: 10,
     }
   }
 
@@ -112,17 +132,17 @@ class Game extends React.Component {
 	}
 
   render() {
-    const cards = this.state.data;
     return (
       <div>
-        <Deck deck={cards} />
+        <Deck deck={this.state.data} />
         <hr/>
-        <Bank />
+        <em>Bank hand:</em>
+        <Hand hand={this.state.bankHand} />
         <hr/>
         <em>Player hand:</em>
-        <Hand />
+        <Hand hand={this.state.playerHand} />
         <hr/>
-        <Player />
+        <Player stack={this.state.stack} bet={this.state.bet}/>
       </div>
     )
   }
