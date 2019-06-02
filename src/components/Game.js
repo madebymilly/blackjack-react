@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { without } from 'lodash'
 
 import Deck from './Deck'
 import Card from './Card'
@@ -21,13 +22,33 @@ class Game extends React.Component {
           { suit: 'clubs', value: "A" }
       ],
       bet: 10,
+      deck: []
     }
+    this.deleteCard = this.deleteCard.bind(this)
   }
 
   componentDidMount() {
 		fetch('../data/deck.json')
 			.then(data => data.json())
-      .then(data => this.setState({data}))
+      .then(result => {
+        const deck = result.map( card => {
+          return card;
+        } )
+        this.setState( {
+          deck: deck
+        } )
+      })
+
+	}
+
+  deleteCard(card) {
+    console.log(card)
+		// always create temp variable
+		let tempDeck = this.state.deck
+		tempDeck = without(tempDeck, card);
+		this.setState({
+			deck: tempDeck
+		})
 	}
 
   render() {
@@ -40,7 +61,7 @@ class Game extends React.Component {
         <Hand hand={this.state.playerHand} />
         <hr/>
         <Player stack={this.state.stack} bet={this.state.bet}/>
-        <Deck deck={this.state.data} />
+        <Deck deck={this.state.deck} deleteCard={this.deleteCard} />
         <hr/>
       </div>
     )

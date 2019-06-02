@@ -22,10 +22,10 @@ class Card extends React.Component {
     }
   }
 
-
   render() {
-    const value = this.props.value;
-    const suit = this.props.suit;
+    const card = this.props.card;
+    const value = card.value;
+    const suit = card.suit;
     return (
       <div className="card js-card">
         <span>{value} of {suit}</span>
@@ -36,7 +36,3 @@ class Card extends React.Component {
 }
 
 export default Card;
-
-//
-//
-//

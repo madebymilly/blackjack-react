@@ -5,17 +5,20 @@ class Deck extends React.Component {
 
   render() {
     const deck = this.props.deck;
+    const deleteCard = this.props.deleteCard;
 
     return (
       <div className="deck js-deck">
         <em>Deck: </em>
         {deck.map(
           (card, i) =>
-          <Card
-            key={i}
-            suit={card.suit}
-            value={card.value}
-          />
+          <div key={i}>
+            <Card
+              card={card}
+              deleteCard={deleteCard}
+            />
+            <button onClick={(e) => this.props.deleteCard(card)}>remove card from deck</button>
+          </div>
         )}
       </div>
     )
