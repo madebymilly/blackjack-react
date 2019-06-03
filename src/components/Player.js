@@ -8,7 +8,12 @@ class Player extends React.Component {
         <em>Player:</em>
         <div>
           <label>Playername: </label>
-          <span>Milly</span>
+          <span>Milly</span><br/>
+          <a href="#">Change Playersname</a>
+          <form className="" noValidate>
+            <input type="text" name="playersname" value="" onChange="" />
+            <button type="submit">Change</button>
+          </form>
         </div>
         <div>
           <label>Stacksize: </label>
@@ -21,4 +26,4 @@ class Player extends React.Component {
   }
 }
 
-export default PlayerMoves;
+export default Player;
