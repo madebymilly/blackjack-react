@@ -6,8 +6,6 @@ import "./main.less"
 import Game from './components/Game'
 
 ReactDOM.render(
-	<div>
-		<Game />
-	</div>,
+	<Game />,
   document.getElementById('game')
 );

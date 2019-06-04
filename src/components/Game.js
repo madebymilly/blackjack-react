@@ -17,13 +17,19 @@ class Game extends React.Component {
       bankHand: [
         { suit: 'hearts', value: 4 }
       ],
+      playerName: 'player1',
       playerHand: [
           { suit: 'hearts', value: 10 },
           { suit: 'clubs', value: "A" }
       ],
       bet: 10,
-      deck: []
+      deck: [],
+      changeName: false,
+      changeStack: false,
     }
+    this.toggleForm = this.toggleForm.bind(this)
+    this.changePlayerName = this.changePlayerName.bind(this)
+    this.changePlayerStack = this.changePlayerStack.bind(this)
     this.deleteCard = this.deleteCard.bind(this)
   }
 
@@ -38,7 +44,29 @@ class Game extends React.Component {
           deck: deck
         } )
       })
+	}
 
+  toggleForm( e ) {
+    //console.log(e);
+    //if ( e != undefined ) {
+      //console.log(e.target.className)
+      const className = e.target.className;
+  		this.setState({
+  			[className]: !this.state[className]
+  		})
+    //}
+	}
+
+  changePlayerName( name ) {
+    this.setState({
+      playerName: name
+    })
+	}
+
+  changePlayerStack( stack ) {
+    this.setState({
+      stack: stack
+    })
 	}
 
   deleteCard(card) {
@@ -60,8 +88,20 @@ class Game extends React.Component {
         <em>Player hand:</em>
         <Hand hand={this.state.playerHand} />
         <hr/>
-        <Player stack={this.state.stack} bet={this.state.bet}/>
-        <Deck deck={this.state.deck} deleteCard={this.deleteCard} />
+        <Player
+          name={this.state.playerName}
+          stack={this.state.stack}
+          bet={this.state.bet}
+          toggleForm={this.toggleForm}
+          changeName={this.state.changeName}
+          changeStack={this.state.changeStack}
+          changePlayerName={this.changePlayerName}
+          changePlayerStack={this.changePlayerStack}
+        />
+        <Deck
+          deck={this.state.deck}
+          deleteCard={this.deleteCard}
+        />
         <hr/>
       </div>
     )
