@@ -46,16 +46,12 @@ class Game extends React.Component {
       })
 	}
 
-  toggleForm( e ) {
-    //console.log(e);
-    //if ( e != undefined ) {
-      //console.log(e.target.className)
-      const className = e.target.className;
-  		this.setState({
-  			[className]: !this.state[className]
-  		})
-    //}
-	}
+  toggleForm( form ) {
+    //console.log(form)
+		this.setState({
+			[form]: !this.state[form]
+		})
+}
 
   changePlayerName( name ) {
     this.setState({

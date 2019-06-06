@@ -16,15 +16,16 @@ class Player extends React.Component {
 
   handleSubmit( e ) {
     e.preventDefault();
+    //console.log(e.target.className);
     let newName = this.state.playerName;
     if ( newName != '' ) {
       this.props.changePlayerName( newName );
-      //this.props.toggleForm();
+      //this.props.toggleForm( 'changeName' )
     }
     let newStack = this.state.stack;
     if ( newStack != '' ) {
       this.props.changePlayerStack( newStack );
-      //this.props.toggleForm();
+      //this.props.toggleForm( 'changeStack' )
     }
   }
 
@@ -45,10 +46,14 @@ class Player extends React.Component {
           <label>Playername: </label>
           <span>{this.props.name}</span><br/>
           <a className="changeName" href="#"
-            onClick={this.props.toggleForm}
+            onClick={ e => this.props.toggleForm( 'changeName' ) }
           >Change name</a>
           <form noValidate
-            onSubmit={this.handleSubmit}
+            onSubmit={ (e) => {
+                this.handleSubmit(e);
+                this.props.toggleForm( 'changeName' );
+              }
+            }
             className={this.props.changeName ? '' : 'is-hidden'}
           >
             <input type="text" name="playerName"
@@ -61,10 +66,14 @@ class Player extends React.Component {
           <label>Stacksize: </label>
           <span>{this.props.stack}</span><br/>
           <a className="changeStack" href="#"
-            onClick={this.props.toggleForm}
+            onClick={ e => this.props.toggleForm( 'changeStack' ) }
           >Change stacksize</a>
           <form noValidate
-            onSubmit={this.handleSubmit}
+            onSubmit={ (e) => {
+                this.handleSubmit(e);
+                this.props.toggleForm( 'changeStack' );
+              }
+            }
             className={this.props.changeStack ? '' : 'is-hidden'}
           >
             <input type="text" name="stack"
