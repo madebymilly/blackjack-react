@@ -13,23 +13,27 @@ class Game extends React.Component {
     super(props)
     this.state = {
       data: [],
-      stackSize: 200,
-      bankHand: [
-        { suit: 'hearts', value: 4 }
-      ],
-      playerName: 'player1',
-      playerHand: [
-          { suit: 'hearts', value: 10 },
-          { suit: 'clubs', value: "A" }
-      ],
-      bet: 10,
       deck: [],
+      playerName: 'Milly',
+      stackSize: 200,
       changeName: false,
       changeStack: false,
+      round: {
+        bet: 0,
+        bankHand: [
+          { suit: 'hearts', value: 4 }
+        ],
+
+        playerHand: [
+            { suit: 'hearts', value: 10 },
+            { suit: 'clubs', value: "A" }
+        ],
+      }
     }
     this.toggleForm = this.toggleForm.bind(this)
     this.changePlayerName = this.changePlayerName.bind(this)
-    this.changePlayerStack = this.changePlayerStack.bind(this)
+    // this.changePlayerStack = this.changePlayerStack.bind(this)
+    this.startRound = this.startRound.bind(this)
     this.deleteCard = this.deleteCard.bind(this)
   }
 
@@ -47,7 +51,6 @@ class Game extends React.Component {
 	}
 
   toggleForm( form ) {
-    //console.log(form)
 		this.setState({
 			[form]: !this.state[form]
 		})
@@ -59,12 +62,22 @@ class Game extends React.Component {
     })
 	}
 
-  changePlayerStack( stackSize ) {
-    console.log(stackSize)
+//   changePlayerStack( stackSize ) {
+//     console.log(stackSize)
+//     this.setState({
+//       stackSize: stackSize
+//     })
+// 	}
+
+  startRound( e ) {
+    e.preventDefault();
+    let tempRound = this.state.round;
+    tempRound.bet = e.target.value;
     this.setState({
-      stackSize: stackSize
+      round: tempRound
     })
-	}
+    // TO DO: deal cards
+  }
 
   deleteCard(card) {
     console.log(card)
@@ -77,23 +90,28 @@ class Game extends React.Component {
 	}
 
   render() {
+
+    const bets = [10, 25, 50, 100];
+
     return (
       <div>
         <em>Bank hand:</em>
-        <Hand hand={this.state.bankHand} />
+        <Hand hand={this.state.round.bankHand} />
         <hr/>
         <em>Player hand:</em>
-        <Hand hand={this.state.playerHand} />
+        <Hand hand={this.state.round.playerHand} />
         <hr/>
         <Player
           name={this.state.playerName}
           stackSize={this.state.stackSize}
-          bet={this.state.bet}
+          bet={this.state.round.bet}
+          startRound={this.startRound}
           toggleForm={this.toggleForm}
           changeName={this.state.changeName}
-          changeStack={this.state.changeStack}
+          // changeStack={this.state.changeStack}
           changePlayerName={this.changePlayerName}
-          changePlayerStack={this.changePlayerStack}
+          // changePlayerStack={this.changePlayerStack}
+          bets={bets}
         />
         <Deck
           deck={this.state.deck}

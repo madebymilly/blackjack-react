@@ -21,8 +21,16 @@ class Player extends React.Component {
           changePlayerStack={this.props.changePlayerStack}
           toggleForm={this.props.toggleForm}
         />
-        <button>Bet {this.props.bet}</button>
-        <PlayerMoves />
+        <div>
+          {this.props.bets.map(
+            (bet, i) =>
+              <button
+                key={i}
+                onClick={this.props.startRound}
+                value={bet}
+              >Bet {bet}</button>
+          )}
+        </div>
         <hr/>
       </div>
     )
