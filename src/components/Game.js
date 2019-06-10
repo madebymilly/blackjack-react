@@ -13,7 +13,7 @@ class Game extends React.Component {
     super(props)
     this.state = {
       data: [],
-      stack: 200,
+      stackSize: 200,
       bankHand: [
         { suit: 'hearts', value: 4 }
       ],
@@ -59,9 +59,10 @@ class Game extends React.Component {
     })
 	}
 
-  changePlayerStack( stack ) {
+  changePlayerStack( stackSize ) {
+    console.log(stackSize)
     this.setState({
-      stack: stack
+      stackSize: stackSize
     })
 	}
 
@@ -86,7 +87,7 @@ class Game extends React.Component {
         <hr/>
         <Player
           name={this.state.playerName}
-          stack={this.state.stack}
+          stackSize={this.state.stackSize}
           bet={this.state.bet}
           toggleForm={this.toggleForm}
           changeName={this.state.changeName}
