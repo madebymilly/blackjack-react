@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { without } from 'lodash'
 
-import Deck from './Deck'
+// import Deck from './Deck'
 import Card from './Card'
 import Hand from './Hand'
 import Player from './Player'
@@ -31,9 +31,10 @@ class Game extends React.Component {
     this.toggleForm = this.toggleForm.bind(this)
     this.changePlayerName = this.changePlayerName.bind(this)
     // this.changePlayerStack = this.changePlayerStack.bind(this)
+    this.doMove = this.doMove.bind(this)
     this.startRound = this.startRound.bind(this)
     this.dealCard = this.dealCard.bind(this)
-    this.deleteCard = this.deleteCard.bind(this)
+    // this.deleteCard = this.deleteCard.bind(this)
   }
 
   componentDidMount() {
@@ -72,7 +73,9 @@ class Game extends React.Component {
 //     })
 // 	}
 
+  doMove() {
 
+  }
 
   startRound( e ) {
     e.preventDefault();
@@ -98,6 +101,10 @@ class Game extends React.Component {
     let tempStackSize = this.state.stackSize;
     tempStackSize -= e.target.value;
 
+    // TODO: make bets invisible (change state of 'roundHasStarted')
+
+    // TODO: calculate possible player moves:
+
     // state veranderd nav van user input, in dit geval 'bet'
     this.setState({
       deck: tempDeck,
@@ -114,15 +121,15 @@ class Game extends React.Component {
   }
 
   // practice (functie wordt in echte spel niet gebruikt, nu allen via button)
-  deleteCard( card ) {
-    console.log(card)
-		// always create temp variable
-		let tempDeck = this.state.deck
-		tempDeck = without(tempDeck, card);
-		this.setState({
-			deck: tempDeck
-		})
-	}
+  // deleteCard( card ) {
+  //   console.log(card)
+	// 	// always create temp variable
+	// 	let tempDeck = this.state.deck
+	// 	tempDeck = without(tempDeck, card);
+	// 	this.setState({
+	// 		deck: tempDeck
+	// 	})
+	// }
 
   render() {
 
@@ -138,6 +145,7 @@ class Game extends React.Component {
         <hr/>
         <em>Player hand:</em>
         <Hand hand={this.state.round.playerHand} />
+        <PlayerMoves />
         <hr/>
         <Player
           name={this.state.playerName}
@@ -151,14 +159,15 @@ class Game extends React.Component {
           // changePlayerStack={this.changePlayerStack}
           bets={bets}
         />
-        <Deck
-          deck={this.state.deck}
-          deleteCard={this.deleteCard}
-        />
-        <hr/>
       </div>
     )
   }
 }
 
 export default Game;
+
+// <Deck
+//   deck={this.state.deck}
+//   deleteCard={this.deleteCard}
+// />
+// <hr/>
