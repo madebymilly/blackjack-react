@@ -27,7 +27,7 @@ class Card extends React.Component {
     const value = card.value;
     const suit = card.suit;
     return (
-      <div className="card js-card">
+      <div className={`card js-card ${this.props.hidden ? 'is-hidden' : ''}`}>
         <span>{value} of {suit}</span>
         {this.renderSwitch(suit)}
       </div>

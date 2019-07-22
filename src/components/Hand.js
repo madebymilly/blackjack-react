@@ -13,6 +13,7 @@ class Hand extends React.Component {
           <Card
             key={i}
             card={card}
+            hidden={card.hidden}
           />
         )}
         </div>
