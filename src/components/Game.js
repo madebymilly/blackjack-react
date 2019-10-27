@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { without } from 'lodash'
+import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom'
 
+import Rules from './Rules';
 // import Deck from './Deck'
 import Card from './Card'
 import Hand from './Hand'
@@ -136,30 +138,37 @@ class Game extends React.Component {
     const bets = [10, 25, 50, 100];
 
     return (
-      <div>
-        <em>Round {this.state.round.id}</em>
-        <div>Bet: {this.state.round.bet}</div>
-        <hr/>
-        <em>Bank hand:</em>
-        <Hand hand={this.state.round.bankHand} />
-        <hr/>
-        <em>Player hand:</em>
-        <Hand hand={this.state.round.playerHand} />
-        <PlayerMoves />
-        <hr/>
-        <Player
-          name={this.state.playerName}
-          stackSize={this.state.stackSize}
-          bet={this.state.round.bet}
-          startRound={this.startRound}
-          toggleForm={this.toggleForm}
-          changeName={this.state.changeName}
-          // changeStack={this.state.changeStack}
-          changePlayerName={this.changePlayerName}
-          // changePlayerStack={this.changePlayerStack}
-          bets={bets}
-        />
-      </div>
+      <Router>
+        <div>
+          <Link to='/how-to-play'>How to play</Link>
+          <hr/>
+          <em>Round {this.state.round.id}</em>
+          <div>Bet: {this.state.round.bet}</div>
+          <hr/>
+          <em>Bank hand:</em>
+          <Hand hand={this.state.round.bankHand} />
+          <hr/>
+          <em>Player hand:</em>
+          <Hand hand={this.state.round.playerHand} />
+          <PlayerMoves />
+          <hr/>
+          <Player
+            name={this.state.playerName}
+            stackSize={this.state.stackSize}
+            bet={this.state.round.bet}
+            startRound={this.startRound}
+            toggleForm={this.toggleForm}
+            changeName={this.state.changeName}
+            // changeStack={this.state.changeStack}
+            changePlayerName={this.changePlayerName}
+            // changePlayerStack={this.changePlayerStack}
+            bets={bets}
+          />
+        </div>
+        <Switch>
+          <Route exact path="/how-to-play" component={Rules} />
+        </Switch>
+      </Router>
     )
   }
 }
