@@ -19,7 +19,9 @@ class Game extends React.Component {
         id: 0,
         bet: 0,
         bankHand: [],
-        playerHand: [],
+        playerHand0: [],
+        // playerHand1: [], na een split
+        hand: 0 // number of hands te player has
       },
       roundHasStarted: false,
     }
@@ -60,7 +62,7 @@ class Game extends React.Component {
     const card3 = this.dealCard( 2 );
     const card4 = this.dealCard( 3 );
 
-    tempRound.playerHand = [ card1, card3 ];
+    tempRound.playerHand0 = [ card1, card3 ];
     tempRound.bankHand = [ card2, card4 ];
     tempRound.bankHand[0].hidden = true;
 
@@ -112,7 +114,7 @@ class Game extends React.Component {
         <Hand hand={this.state.round.bankHand} />
         <hr/>
         <em>Player hand:</em>
-        <Hand hand={this.state.round.playerHand} />
+        <Hand hand={this.state.round.playerHand0} />
         {playermoves}
         <hr/>
         <Player
