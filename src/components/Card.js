@@ -1,38 +1,30 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { GiClubs, GiSpades, GiHearts, GiDiamonds } from 'react-icons/gi'
 
-class Card extends React.Component {
+const renderSwitch = (s) => {
+  switch (s) {
+    case 'hearts':
+      return <GiHearts />;
 
-  renderSwitch(param) {
-    switch(param) {
-      case 'hearts':
-        return <GiHearts />;
+    case 'spades':
+      return <GiSpades />;
 
-      case 'spades':
-       return <GiSpades />;
+    case 'clubs':
+      return <GiClubs />;
 
-      case 'clubs':
-        return <GiClubs />;
+    case 'diamonds':
+      return <GiDiamonds />;
 
-      case 'diamonds':
-        return <GiDiamonds />;
-
-      default:
-        return '';
-    }
+    default:
+      return '';
   }
+};
 
-  render() {
-    const card = this.props.card;
-    const value = card.value;
-    const suit = card.suit;
-    return (
-      <div className={`card js-card ${this.props.hidden ? 'is-hidden' : ''}`}>
-        <span>{value} of {suit}</span>
-        {this.renderSwitch(suit)}
-      </div>
-    )
-  }
-}
+const Card = ({ card, hidden }) => (
+  <div className={`card js-card ${hidden ? 'is-hidden' : ''}`}>
+    <span>{card.value} of {card.suit}</span>
+    {renderSwitch(card.suit)}
+  </div>
+);
 
 export default Card;

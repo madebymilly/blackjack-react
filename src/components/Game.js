@@ -6,7 +6,7 @@ import Hand from './Hand'
 import Player from './Player'
 import PlayerMoves from './PlayerMoves'
 
-class Game extends React.Component {
+class Game extends Component {
 
   constructor(props) {
     super(props)
