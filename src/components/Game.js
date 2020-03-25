@@ -77,7 +77,9 @@ class Game extends React.Component {
 
     // TODO: make bets invisible (change state of 'roundHasStarted')
 
-    // TODO: calculate possible player moves:
+    // TODO: calculate possible player moves: with a getter and setter.
+    // Based on outcome return React Component in this Game.js (so PlayerMoves.js can be removed.)
+    // See App.js in react-text-editor files.
 
     // state veranderd nav van user input, in dit geval 'bet':
     this.setState(prevState => ({ // werk met prevState, zodat het asyncroon werkt.
