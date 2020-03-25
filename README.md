@@ -3,8 +3,6 @@ Blackjack game in React.
 Work in progress in the dev branche.
 
 ## Code improvements:
-- Which is container comp (make class component) and which is presentation comp (make functional component)
-- Arrow functions and remove bind from constructor
 - Destructing assignments
 
 ### To do:

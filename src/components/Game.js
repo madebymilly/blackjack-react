@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { without } from 'lodash'
 
-import Card from './Card'
 import Hand from './Hand'
 import Player from './Player'
 import PlayerMoves from './PlayerMoves'
@@ -25,9 +24,6 @@ class Game extends Component {
       },
       roundHasStarted: false,
     }
-    this.doMove = this.doMove.bind(this)
-    this.startRound = this.startRound.bind(this)
-    this.dealCard = this.dealCard.bind(this)
   }
 
   componentDidMount() {
@@ -47,11 +43,11 @@ class Game extends Component {
       })
 	}
 
-  doMove() {
+  doMove = () => {
 
   }
 
-  startRound( e ) {
+  startRound = ( e ) => {
     e.preventDefault();
     let tempRound = this.state.round;
     tempRound.bet = e.target.value;
@@ -90,7 +86,7 @@ class Game extends Component {
     }));
   }
 
-  dealCard( i ) {
+  dealCard = ( i ) => {
     // a functional approach,
     // Because this.props and this.state may be updated asynchronously, you should not rely on their values for calculating the next state.
     const card = this.state.deck[i];
