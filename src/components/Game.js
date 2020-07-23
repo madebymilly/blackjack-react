@@ -43,9 +43,22 @@ class Game extends Component {
       })
 	}
 
-  doMove = () => {
-
+  doMove = ( move ) => {
+    //console.log(move.move);
+    const m = move.move;
+    if (m == 'pass') {
+      console.log('pass');
+    } else if ( m == 'hit' ) {
+      console.log('hit');
+    } else if ( m == 'double') {
+      console.log('double');
+    } else if ( m == 'split' ) {
+      console.log('split'); 
+    } else {
+      return false;
+    }
   }
+
 
   startRound = ( e ) => {
     e.preventDefault();
@@ -100,7 +113,7 @@ class Game extends Component {
 
     if ( this.state.roundHasStarted ) {
       console.log('round has started!');
-      playermoves = <PlayerMoves />
+      playermoves = <PlayerMoves doMove={this.doMove}/>
     }
 
     return (

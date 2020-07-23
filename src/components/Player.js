@@ -11,13 +11,13 @@ const Player = ({name, stackSize, bet, startRound, bets}) => (
       <div>
         {bets.map(
           (bet, i) =>
-              <button
+            <button
               key={i}
               onClick={startRound}
               value={bet}
-              >
-              Bet {bet}
-              </button>
+            >
+            Bet {bet}
+            </button>
           )}
       </div>
     }
