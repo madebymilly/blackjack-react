@@ -4,6 +4,7 @@ Work in progress in the dev branche.
 
 ## Code improvements:
 - Destructing assignments
+- Hooks
 
 ### To do:
 - Make split possible
