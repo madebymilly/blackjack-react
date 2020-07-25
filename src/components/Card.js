@@ -22,7 +22,7 @@ const renderSwitch = (s) => {
 
 const Card = ({ card, hidden }) => (
   <div className={`card js-card ${hidden ? 'is-hidden' : ''}`}>
-    <span>{card.value} of {card.suit}</span>
+    <span>{card.rank} of {card.suit}</span>
     {renderSwitch(card.suit)}
   </div>
 );

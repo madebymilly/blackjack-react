@@ -28,6 +28,7 @@ const Hand = ({hand}) => {
       </div>
       <br/>
       <div>Handwaarde: {handValue}</div>
+      <br/><br/>
     </div>
   )
 }

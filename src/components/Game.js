@@ -18,9 +18,10 @@ class Game extends Component {
         id: 0,
         bet: 0,
         bankHand: [],
-        playerHand0: [],
+        //playerHand0: [],
         // playerHand1: [], na een split
-        hands: 1 // number of hands te player has
+        //hands: 1, // number of hands te player has
+        playerHands: []
       },
       roundHasStarted: false,
     }
@@ -44,15 +45,21 @@ class Game extends Component {
   }
   
   split = () => {
-    // Create extra playerHand, based on numbers of hands:
-    let tempRound = this.state.round;
-    tempRound['playerHand' + this.state.round.hands] = [];
+    // double the bet
+    // ...
 
-    let newHand = tempRound['playerHand' + this.state.round.hands];
-    let firstHand = tempRound['playerHand' + (this.state.round.hands-1)];
+    // Create extra playerHand, based on numbers of hands:
+    const total = this.state.round.playerHands.length;
+    console.log(total);
+
+    let tempRound = this.state.round;
+
+    tempRound.playerHands[total] = [];
+
+    let newHand = tempRound.playerHands[total];
+    let firstHand = tempRound.playerHands[total-1];
 
     var card = firstHand.pop();
-    console.log(card);
     newHand.push(card);
 
     this.setState(prevState => ({
@@ -111,7 +118,7 @@ class Game extends Component {
     const card3 = this.dealCard( 2 );
     const card4 = this.dealCard( 3 );
 
-    tempRound.playerHand0 = [ card1, card3 ];
+    tempRound.playerHands[0] = [ card1, card3 ];
     tempRound.bankHand = [ card2, card4 ];
     tempRound.bankHand[0].hidden = true;
 
@@ -165,7 +172,13 @@ class Game extends Component {
         <Hand hand={this.state.round.bankHand} />
         <hr/>
         <em>Player hand:</em>
-        <Hand hand={this.state.round.playerHand0} />
+        {this.state.round.playerHands.map(
+          (hand, i) => 
+            <Hand key={i} hand={hand} />
+        )}
+        {
+          // TODO: add playermoves to <Hand>:
+        }
         {playermoves}
         <hr/>
         <Player
