@@ -10,7 +10,7 @@ function getHandValue(hand) {
   return handValue;
 }
 
-function Hand({hand}) {
+const Hand = ({hand}) => {
 
   const handValue = getHandValue(hand);
   
@@ -30,6 +30,6 @@ function Hand({hand}) {
       <div>Handwaarde: {handValue}</div>
     </div>
   )
-};
+}
 
 export default Hand;

@@ -20,7 +20,7 @@ class Game extends Component {
         bankHand: [],
         playerHand0: [],
         // playerHand1: [], na een split
-        hand: 0 // number of hands te player has
+        hands: 1 // number of hands te player has
       },
       roundHasStarted: false,
     }
@@ -41,22 +41,61 @@ class Game extends Component {
           deck: deck
         } )
       })
-	}
+  }
+  
+  split = () => {
+    // Create extra playerHand, based on numbers of hands:
+    let tempRound = this.state.round;
+    tempRound['playerHand' + this.state.round.hands] = [];
+
+    let newHand = tempRound['playerHand' + this.state.round.hands];
+    let firstHand = tempRound['playerHand' + (this.state.round.hands-1)];
+
+    var card = firstHand.pop();
+    console.log(card);
+    newHand.push(card);
+
+    this.setState(prevState => ({
+      round: tempRound,
+    }));
+
+    // deal card on both hands
+    // per hand go further
+  }
 
   doMove = ( move ) => {
     //console.log(move.move);
     const m = move.move;
     if (m == 'pass') {
       console.log('pass');
+      // check if players has more hands
+      // finishRound:
+      this.finishRound();
     } else if ( m == 'hit' ) {
       console.log('hit');
+      // give player another card
+      // check if 'dead'
+      // check if more hands
     } else if ( m == 'double') {
       console.log('double');
+      // double the bet
+      // give player another card
+      // check if 'dead'
+      // finishRound
     } else if ( m == 'split' ) {
       console.log('split'); 
+      this.split();
     } else {
       return false;
     }
+  }
+
+  finishRound = ( e ) => {
+      // show bankcards
+      // check if bank needs more cards
+      // compare hands
+      // finish round
+      console.log('finishRound');
   }
 
 
@@ -66,6 +105,7 @@ class Game extends Component {
     tempRound.bet = e.target.value;
     tempRound.id = this.state.round.id + 1;
 
+    // dit kan ook slimmer, apart fucntion voor dealCardFromDeck (en meten die kaart uit deck halen.)
     const card1 = this.dealCard( 0 );
     const card2 = this.dealCard( 1 );
     const card3 = this.dealCard( 2 );
