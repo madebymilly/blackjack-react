@@ -1,17 +1,35 @@
-import React from 'react'
+import React, {useState} from 'react'
 import Card from './Card'
 
-const Hand = ({hand}) => (
+function getHandValue(hand) {
+  let handValue = 0;
+  hand.map(
+    (card, i) =>
+      handValue = handValue + card.value
+  )
+  return handValue;
+}
+
+function Hand({hand}) {
+
+  const handValue = getHandValue(hand);
+  
+  return (
     <div className="hand js-hand">
-    {hand.map(
-      (card, i) =>
-      <Card
-        key={i}
-        card={card}
-        hidden={card.hidden}
-      />
-    )}
+      <div>
+      {hand.map(
+        (card, i) =>
+          <Card
+            key={i}
+            card={card}
+            hidden={card.hidden}
+          />
+        )}
+      </div>
+      <br/>
+      <div>Handwaarde: {handValue}</div>
     </div>
-);
+  )
+};
 
 export default Hand;
