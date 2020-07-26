@@ -48,6 +48,8 @@ class Game extends Component {
     // double the bet
     // ...
 
+    // check welke hand er gesplit moet worden
+
     // Create extra playerHand, based on numbers of hands:
     const total = this.state.round.playerHands.length;
     console.log(total);
@@ -75,16 +77,19 @@ class Game extends Component {
     const m = move.move;
     if (m == 'pass') {
       console.log('pass');
+      // check welke hand er gepast moet worden
       // check if players has more hands
       // finishRound:
       this.finishRound();
     } else if ( m == 'hit' ) {
       console.log('hit');
+      // check welke hand er gehit moet worden
       // give player another card
       // check if 'dead'
       // check if more hands
     } else if ( m == 'double') {
       console.log('double');
+      // check welke hand er gedubbeld moet worden
       // double the bet
       // give player another card
       // check if 'dead'
@@ -174,18 +179,15 @@ class Game extends Component {
         <em>Player hand:</em>
         {this.state.round.playerHands.map(
           (hand, i) => 
-            <Hand key={i} hand={hand} />
+            <Hand key={i} hand={hand} moves={playermoves}/>
         )}
-        {
-          // TODO: add playermoves to <Hand>:
-        }
-        {playermoves}
         <hr/>
         <Player
           name={this.state.playerName}
           stackSize={this.state.stackSize}
           bet={this.state.round.bet}
           startRound={this.startRound}
+          roundHasStarted={this.state.roundHasStarted}
           bets={bets}
         />
       </div>

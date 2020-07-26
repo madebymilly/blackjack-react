@@ -10,8 +10,10 @@ function getHandValue(hand) {
   return handValue;
 }
 
-const Hand = ({hand}) => {
+const Hand = ({hand, moves}) => {
 
+    // move this function to game?
+    // or maybe should i make a helpers file? search for examples.
   const handValue = getHandValue(hand);
   
   return (
@@ -27,7 +29,8 @@ const Hand = ({hand}) => {
         )}
       </div>
       <br/>
-      <div>Handwaarde: {handValue}</div>
+      <div>Handwaarde: {handValue}</div><br/>
+      {moves}
       <br/><br/>
     </div>
   )
