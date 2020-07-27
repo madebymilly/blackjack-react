@@ -15,9 +15,10 @@ const Hand = ({hand, moves}) => {
     // move this function to game?
     // or maybe should i make a helpers file? search for examples.
   const handValue = getHandValue(hand);
-  
+
   return (
     <div className="hand js-hand">
+      <label>Hand: </label>
       <div>
       {hand.map(
         (card, i) =>

@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
 import { without } from 'lodash'
 
-import Hand from './Hand'
 import Player from './Player'
-import PlayerMoves from './PlayerMoves'
+import Bank from './Bank'
 
 class Game extends Component {
 
@@ -12,15 +11,14 @@ class Game extends Component {
     this.state = {
       data: [],
       deck: [], // is dit wel state? want kan steeds uitgerekend worden op basis van roundbankHand & playerHand
-      playerName: 'Milly',
-      stackSize: 200,
+      player: {
+        name: 'Milly',
+        stackSize: 1000,
+      },
       round: {
         id: 0,
         bet: 0,
         bankHand: [],
-        //playerHand0: [],
-        // playerHand1: [], na een split
-        //hands: 1, // number of hands te player has
         playerHands: []
       },
       roundHasStarted: false,
@@ -43,7 +41,7 @@ class Game extends Component {
         } )
       })
   }
-  
+
   split = () => {
     // double the bet
     // ...
@@ -52,7 +50,7 @@ class Game extends Component {
 
     // Create extra playerHand, based on numbers of hands:
     const total = this.state.round.playerHands.length;
-    console.log(total);
+    //console.log(total);
 
     let tempRound = this.state.round;
 
@@ -95,7 +93,7 @@ class Game extends Component {
       // check if 'dead'
       // finishRound
     } else if ( m == 'split' ) {
-      console.log('split'); 
+      console.log('split');
       this.split();
     } else {
       return false;
@@ -161,35 +159,28 @@ class Game extends Component {
   render() {
 
     const bets = [10, 25, 50, 100];
-    let playermoves;
-
-    if ( this.state.roundHasStarted ) {
-      console.log('round has started!');
-      playermoves = <PlayerMoves doMove={this.doMove}/>
-    }
 
     return (
       <div>
-        <em>Round {this.state.round.id}</em>
-        <div>Bet: {this.state.round.bet}</div>
+        <h3>Game:</h3>
+        <label>Round: </label>
+        <span>{this.state.round.id}</span>
         <hr/>
-        <em>Bank hand:</em>
-        <Hand hand={this.state.round.bankHand} />
-        <hr/>
-        <em>Player hand:</em>
-        {this.state.round.playerHands.map(
-          (hand, i) => 
-            <Hand key={i} hand={hand} moves={playermoves}/>
-        )}
+        <Bank
+          hand={this.state.round.bankHand}
+        />
         <hr/>
         <Player
-          name={this.state.playerName}
-          stackSize={this.state.stackSize}
+          name={this.state.player.name}
+          stackSize={this.state.player.stackSize}
           bet={this.state.round.bet}
           startRound={this.startRound}
           roundHasStarted={this.state.roundHasStarted}
           bets={bets}
+          hands={this.state.round.playerHands}
+          doMove={this.doMove}
         />
+        <hr />
       </div>
     )
   }
