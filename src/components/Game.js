@@ -4,10 +4,15 @@ import { without } from 'lodash'
 import Player from './Player'
 import Bank from './Bank'
 
+const possibleBets = [10, 25, 50, 100];
+
 class Game extends Component {
+
+  
 
   constructor(props) {
     super(props)
+    
     this.state = {
       data: [],
       deck: [], // is dit wel state? want kan steeds uitgerekend worden op basis van roundbankHand & playerHand
@@ -71,7 +76,6 @@ class Game extends Component {
   }
 
   doMove = ( move ) => {
-    //console.log(move.move);
     const m = move.move;
     if (m == 'pass') {
       console.log('pass');
@@ -101,21 +105,32 @@ class Game extends Component {
   }
 
   finishRound = ( e ) => {
-      // show bankcards
-      // check if bank needs more cards
-      // compare hands
-      // finish round
-      console.log('finishRound');
+
+    const { round } = this.state; // (Destructing assignments)
+    // show bankcards
+    let tempRound = round;
+    round.bankHand[0].hidden = false;
+    // check handvalue and if bank needs more cards
+    // compare hands
+    // finish round
+    console.log('finishRound');
+
+    this.setState(prevState => ({ // werk met prevState, zodat het asyncroon werkt.
+      round: tempRound,
+      roundHasStarted: false
+    }));
   }
 
 
   startRound = ( e ) => {
     e.preventDefault();
-    let tempRound = this.state.round;
+    const { round, stackSize, deck } = this.state; // (Destructing assignments)
+
+    let tempRound = round;
     tempRound.bet = e.target.value;
     tempRound.id = this.state.round.id + 1;
 
-    // dit kan ook slimmer, apart fucntion voor dealCardFromDeck (en meten die kaart uit deck halen.)
+    // dit kan ook slimmer, apart fucntion voor dealCardFromDeck (en meteen die kaart uit deck halen.)
     const card1 = this.dealCard( 0 );
     const card2 = this.dealCard( 1 );
     const card3 = this.dealCard( 2 );
@@ -125,22 +140,20 @@ class Game extends Component {
     tempRound.bankHand = [ card2, card4 ];
     tempRound.bankHand[0].hidden = true;
 
-    let tempDeck = this.state.deck;
+    let tempDeck = deck;
     tempDeck = without( tempDeck, card1 );
     tempDeck = without( tempDeck, card2 );
     tempDeck = without( tempDeck, card3 );
 		tempDeck = without( tempDeck, card4 );
 
-    let tempStackSize = this.state.stackSize;
+    let tempStackSize = stackSize;
     tempStackSize -= e.target.value;
-
-    // TODO: make bets invisible (change state of 'roundHasStarted')
 
     // TODO: calculate possible player moves: with a getter and setter.
     // Based on outcome return React Component in this Game.js (so PlayerMoves.js can be removed.)
     // See App.js in react-text-editor files.
 
-    // state veranderd nav van user input, in dit geval 'bet':
+    // state veranderd nav. van user input, in dit geval 'bet':
     this.setState(prevState => ({ // werk met prevState, zodat het asyncroon werkt.
       deck: tempDeck,
       round: tempRound,
@@ -151,14 +164,13 @@ class Game extends Component {
 
   dealCard = ( i ) => {
     // a functional approach,
-    // Because this.props and this.state may be updated asynchronously, you should not rely on their values for calculating the next state.
+    // Because this.props and this.state may be updated asynchronously, 
+    // you should not rely on their values for calculating the next state.
     const card = this.state.deck[i];
     return card;
   }
 
   render() {
-
-    const bets = [10, 25, 50, 100];
 
     return (
       <div>
@@ -176,7 +188,7 @@ class Game extends Component {
           bet={this.state.round.bet}
           startRound={this.startRound}
           roundHasStarted={this.state.roundHasStarted}
-          bets={bets}
+          bets={possibleBets}
           hands={this.state.round.playerHands}
           doMove={this.doMove}
         />

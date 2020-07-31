@@ -7,7 +7,6 @@ const Bank = ({ hand }) => {
     <div className="player js-player">
       <h3>Bank:</h3>
       <div>
-        <label>Hand: </label>
         <Hand hand={hand} />
       </div>
     </div>
