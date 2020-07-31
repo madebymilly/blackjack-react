@@ -7,7 +7,9 @@ Work in progress.
 - Hooks?
 
 ### To do:
-- Feedback deck
+- Create Deck JS class (no React, since no render)
+
+- Create Round JS class?
 
 - Start first round.
   - Show only possible player moves

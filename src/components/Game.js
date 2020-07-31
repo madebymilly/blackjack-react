@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { without } from 'lodash'
 
+import Deck from './Deck'
 import Player from './Player'
 import Bank from './Bank'
 
@@ -8,14 +9,13 @@ const possibleBets = [10, 25, 50, 100];
 
 class Game extends Component {
 
-  
-
   constructor(props) {
     super(props)
     
     this.state = {
       data: [],
       deck: [], // is dit wel state? want kan steeds uitgerekend worden op basis van roundbankHand & playerHand
+      currentDeck: [], // test deck
       player: {
         name: 'Milly',
         stackSize: 1000,
@@ -31,20 +31,14 @@ class Game extends Component {
   }
 
   componentDidMount() {
-		fetch('../data/deck.json')
-			.then(data => data.json())
-      .then(result => {
-        const deck = result.map( card => {
-          return card;
-        } )
-        // shuffle:
-        .sort(function() {
-      		return 0.5 - Math.random();
-      	});
-        this.setState( {
-          deck: deck
-        } )
+    // Deck:
+    let newDeck = new Deck();
+    newDeck.deck.then(() => {
+      console.log(newDeck.deck);
+      this.setState({
+        deck: newDeck.deck
       })
+    }) 
   }
 
   split = () => {
