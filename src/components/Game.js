@@ -34,35 +34,21 @@ class Game extends Component {
   }
 
   componentDidMount() {
-    // Deck:
-    //let newDeck = new Deck();
-    // fetch('../data/deck.json')
-    //   .then(data => data.json())
-    //   .then(result => {
-    //     const deck = result.map(card => {
-    //       return card;
-    //     })
-    //       // shuffle:
-    //       .sort(function () {
-    //         return 0.5 - Math.random();
-    //       });
-    //     this.setState({
-    //       deck: deck
-    //     })
 
-    this.deck.deckIsReady.then(() => {
-        this.setState({
-          deckReady: true
-        })
-    })
-      console.log(this.deck);
-      console.log(this.deck.currentDeck);
+    let deckPromise = this.deck.fetchCards(); // de functie fetchCards geeft een promise terug. Die promise stoppen we in een variable. Dat doet verder nog niks.
+    
+    deckPromise.then(() => { // deze 'then' gebeurt pas zodra in de promise 'resolve()' is aangeroepen. 
+      
+      this.setState(prevState => ({ deckReady: !prevState.deckReady })); // blijkbaar is het niet 'goed' om een boolean vairable direct van false -> true te zetten met setState, maar beter om te kijken naar de oude state waarde en die om te draaien 
 
-      // console.log(newDeck.deck);
-      // this.setState({
-        // deck: newDeck.deck
-      // })
-    // })
+      console.log(this.deck.currentDeck); // dus nu zou 'in' het deck object het currentDeck gevuld moeten zijn.
+      
+      const newCard = this.deck.dealCard();
+      console.log(newCard);
+
+    }, () => {
+      // hier kun je eventueel neerzetten wat er gebeurt als de promise 'reject' heeft geroepen
+    });
   }
 
   split = () => {
