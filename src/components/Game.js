@@ -11,11 +11,14 @@ class Game extends Component {
 
   constructor(props) {
     super(props)
-    
+
+    this.deck = new Deck();
+
     this.state = {
       data: [],
-      deck: [], // is dit wel state? want kan steeds uitgerekend worden op basis van roundbankHand & playerHand
-      currentDeck: [], // test deck
+      //deck: [], // is dit wel state? want kan steeds uitgerekend worden op basis van roundbankHand & playerHand
+      //currentDeck: [], // test deck
+      deckReady: false,
       player: {
         name: 'Milly',
         stackSize: 1000,
@@ -32,13 +35,34 @@ class Game extends Component {
 
   componentDidMount() {
     // Deck:
-    let newDeck = new Deck();
-    newDeck.deck.then(() => {
-      console.log(newDeck.deck);
-      this.setState({
-        deck: newDeck.deck
-      })
-    }) 
+    //let newDeck = new Deck();
+    // fetch('../data/deck.json')
+    //   .then(data => data.json())
+    //   .then(result => {
+    //     const deck = result.map(card => {
+    //       return card;
+    //     })
+    //       // shuffle:
+    //       .sort(function () {
+    //         return 0.5 - Math.random();
+    //       });
+    //     this.setState({
+    //       deck: deck
+    //     })
+
+    this.deck.deckIsReady.then(() => {
+        this.setState({
+          deckReady: true
+        })
+    })
+      console.log(this.deck);
+      console.log(this.deck.currentDeck);
+
+      // console.log(newDeck.deck);
+      // this.setState({
+        // deck: newDeck.deck
+      // })
+    // })
   }
 
   split = () => {
@@ -158,7 +182,7 @@ class Game extends Component {
 
   dealCard = ( i ) => {
     // a functional approach,
-    // Because this.props and this.state may be updated asynchronously, 
+    // Because this.props and this.state may be updated asynchronously,
     // you should not rely on their values for calculating the next state.
     const card = this.state.deck[i];
     return card;
