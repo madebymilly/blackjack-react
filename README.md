@@ -8,8 +8,9 @@ Work in progress.
 
 ### To do:
 - Create Deck JS class (no React, since no render)
-
-- Create Round JS class?
+  - Fetch only once, shuffle new Deck every round
+  - DealCard function
+  - StartRound only when Deck is Ready! (check state)
 
 - Start first round.
   - Show only possible player moves

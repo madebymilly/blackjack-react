@@ -5,19 +5,17 @@ import Deck from './Deck'
 import Player from './Player'
 import Bank from './Bank'
 
-const possibleBets = [10, 25, 50, 100];
-
 class Game extends Component {
 
   constructor(props) {
     super(props)
 
     this.deck = new Deck();
+    this.currentDeck = [];
+    this.possibleBets = [10, 25, 50, 100];
 
     this.state = {
       data: [],
-      //deck: [], // is dit wel state? want kan steeds uitgerekend worden op basis van roundbankHand & playerHand
-      //currentDeck: [], // test deck
       deckReady: false,
       player: {
         name: 'Milly',
@@ -35,20 +33,25 @@ class Game extends Component {
 
   componentDidMount() {
 
+    // Promise for checking if deck is ready:
     let deckPromise = this.deck.fetchCards(); // de functie fetchCards geeft een promise terug. Die promise stoppen we in een variable. Dat doet verder nog niks.
-    
-    deckPromise.then(() => { // deze 'then' gebeurt pas zodra in de promise 'resolve()' is aangeroepen. 
-      
-      this.setState(prevState => ({ deckReady: !prevState.deckReady })); // blijkbaar is het niet 'goed' om een boolean vairable direct van false -> true te zetten met setState, maar beter om te kijken naar de oude state waarde en die om te draaien 
 
-      console.log(this.deck.currentDeck); // dus nu zou 'in' het deck object het currentDeck gevuld moeten zijn.
-      
-      const newCard = this.deck.dealCard();
-      console.log(newCard);
+    deckPromise.then(() => { // deze 'then' gebeurt pas zodra in de promise 'resolve()' is aangeroepen.
+
+      this.setState(prevState => ({
+        deckReady: !prevState.deckReady
+      }));
+
+      this.currentDeck = this.deck.currentDeck;
+
+      // TODO: Dealcard
+      // const newCard = this.deck.dealCard();
+      // console.log(newCard);
 
     }, () => {
       // hier kun je eventueel neerzetten wat er gebeurt als de promise 'reject' heeft geroepen
     });
+
   }
 
   split = () => {
@@ -121,14 +124,15 @@ class Game extends Component {
 
     this.setState(prevState => ({ // werk met prevState, zodat het asyncroon werkt.
       round: tempRound,
-      roundHasStarted: false
+      roundHasStarted: !prevState.roundHasStarted
     }));
   }
 
 
   startRound = ( e ) => {
     e.preventDefault();
-    const { round, stackSize, deck } = this.state; // (Destructing assignments)
+    const { round, stackSize } = this.state; // (Destructing assignments)
+    //console.log(this.currentDeck);
 
     let tempRound = round;
     tempRound.bet = e.target.value;
@@ -144,7 +148,7 @@ class Game extends Component {
     tempRound.bankHand = [ card2, card4 ];
     tempRound.bankHand[0].hidden = true;
 
-    let tempDeck = deck;
+    let tempDeck = this.currentDeck; // TODO: DIT IN APARTE FUNCTIE DOEN 'removeCard' of DealCard'
     tempDeck = without( tempDeck, card1 );
     tempDeck = without( tempDeck, card2 );
     tempDeck = without( tempDeck, card3 );
@@ -157,12 +161,10 @@ class Game extends Component {
     // Based on outcome return React Component in this Game.js (so PlayerMoves.js can be removed.)
     // See App.js in react-text-editor files.
 
-    // state veranderd nav. van user input, in dit geval 'bet':
     this.setState(prevState => ({ // werk met prevState, zodat het asyncroon werkt.
-      deck: tempDeck,
       round: tempRound,
       stackSize: tempStackSize,
-      roundHasStarted: true
+      roundHasStarted: !prevState.roundHasStarted
     }));
   }
 
@@ -170,7 +172,7 @@ class Game extends Component {
     // a functional approach,
     // Because this.props and this.state may be updated asynchronously,
     // you should not rely on their values for calculating the next state.
-    const card = this.state.deck[i];
+    const card = this.currentDeck[i];
     return card;
   }
 
@@ -192,7 +194,7 @@ class Game extends Component {
           bet={this.state.round.bet}
           startRound={this.startRound}
           roundHasStarted={this.state.roundHasStarted}
-          bets={possibleBets}
+          bets={this.possibleBets}
           hands={this.state.round.playerHands}
           doMove={this.doMove}
         />

@@ -1,11 +1,4 @@
-// Bijv het Deck: een aparte file die de fetch doet, en een paar functies heeft:
-// shuffle, dealCard, reset etc. Omdat die niks rendert naar het scherm,
-// maar alleen bij hoeft te houden wat er in de deck zit hoeft het alleen geen React te zijn,
-// maar kan het gewoon een js-class zijn.
-// Die importeer je dan in je Game en doe je iets als:
-// let currentDeck = new Deck();
-// currentDeck.shuffle();
-// let newCard = currentDeck.dealCard();
+
 // Regular JS class (no React):
 class Deck {
     constructor() {
@@ -17,7 +10,7 @@ class Deck {
         let deckPromise = new Promise((resolve, reject) => {
 
             // haal de data op, en geef de promise deckPromise een seintje zodra je klaar bent.
-            fetch('../data/deck.json')
+            fetch('../data/deck.json') // TODO: deck fetchen hoeft maar 1x... shuffle wordt aparte functie, want dat moet welke elke ronde.
                 .then(response => response.json())
                 .then(result => {
                     this.currentDeck = result.sort(function () {
