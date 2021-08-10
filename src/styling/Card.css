@@ -1,0 +1,10 @@
+.Card.is-hidden {
+  display: block;
+  text-decoration: line-through;
+}
+
+.Card .icon--red {
+	fill: red;
+}
+
+

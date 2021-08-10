@@ -128,7 +128,6 @@ class Game extends Component {
     }));
   }
 
-
   startRound = ( e ) => {
     e.preventDefault();
     const { round, stackSize } = this.state; // (Destructing assignments)
