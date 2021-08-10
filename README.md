@@ -3,15 +3,9 @@ Blackjack game in React.
 Work in progress.
 
 ## Code improvements:
-- Destructing assignments
-- Hooks?
+- defaultProps?
 
 ### To do:
-- Create Deck JS class (no React, since no render)
-  - Fetch only once, shuffle new Deck every round
-  - DealCard function
-  - StartRound only when Deck is Ready! (check state)
-
 - Start first round.
   - Show only possible player moves
   - Pass
@@ -21,6 +15,11 @@ Work in progress.
   - Bank moves
   - Check winner
   - Payout
+
+- Create Deck JS class (no React, since no render)
+  - XX Fetch only once, shuffle new Deck every round
+  - XX DealCard function
+  - StartRound only when Deck is Ready! (check state)
 
 - Deal card from deck function
 
