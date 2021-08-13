@@ -18,7 +18,8 @@ Work in progress.
 
 - Create Deck JS class (no React, since no render)
   - XX Fetch only once, shuffle new Deck every round
-  - XX DealCard function
+  - check if currentDeck is in use.
+  - use DealCard function from Deck.js
   - StartRound only when Deck is Ready! (check state)
 
 - Deal card from deck function
