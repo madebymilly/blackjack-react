@@ -82,28 +82,28 @@ class Game extends Component {
     // per hand go further
   }
 
-  doMove = ( move ) => {
-    const m = move.move;
-    if (m == 'pass') {
+  doMove = (move) => {
+    //console.log(move);
+    if (move == 'pass') {
       console.log('pass');
       // check welke hand er gepast moet worden
       // check if players has more hands
       // finishRound:
       this.finishRound();
-    } else if ( m == 'hit' ) {
+    } else if ( move == 'hit' ) {
       console.log('hit');
       // check welke hand er gehit moet worden
       // give player another card
       // check if 'dead'
       // check if more hands
-    } else if ( m == 'double') {
+    } else if ( move == 'double') {
       console.log('double');
       // check welke hand er gedubbeld moet worden
       // double the bet
       // give player another card
       // check if 'dead'
       // finishRound
-    } else if ( m == 'split' ) {
+    } else if ( move== 'split' ) {
       console.log('split');
       this.split();
     } else {
