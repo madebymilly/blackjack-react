@@ -7,6 +7,7 @@ class Deck {
     fetchCards() {
 
         // maak een nieuwe promise aan, wat eigenlijk puur een object is dat dat een 'wachtstatus' heeft
+        // vergelijkbaar met async functions
         let deckPromise = new Promise((resolve, reject) => {
 
             // haal de data op, en geef de promise deckPromise een seintje zodra je klaar bent.
